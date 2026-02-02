@@ -148,21 +148,21 @@
 
 		<div class="content">
 
-			@php
-// Инструмент,          Что на входе (аргументы),           Что внутри функции (callback),					Что возвращает (выход)
+
+{{-- // Инструмент,          Что на входе (аргументы),           Что внутри функции (callback),					Что возвращает (выход)
 // collect($arr),       Обычный массив,                     —,												Объект-коллекция
 // pluck('key'),        Имя ключа (строка),                 —,												Коллекция только из значений этого ключа
 // filter(fn),          Анонимная функция,					Элемент массива. Должен вернуть true/false,		"Коллекция только с теми данными, где было true"
 // map(fn),             Анонимная функция,					Элемент массива. Должен вернуть новое значение,	Коллекция с измененными значениями
 // keys(),              Нет,								—,												"Коллекция, состоящая только из ключей"
-// all(),               Нет,								—,												Обычный массив (вынимает данные из коробки)
+// all(),               Нет,								—,												Обычный массив (вынимает данные из коробки) --}}
 
 
 
 
+@php
 
-
-				define("BASE_CURRENCY", "USD");
+				define("BASE_CURRENCY", "php artisan serve");
 				// BASE_CURRENCY = "USD";
 				// $inflationRate = 5.5;
 				// $indexName = "CPI";
@@ -196,10 +196,22 @@
 					]
 				];
 
+            $collection = collect($newCountries)->keys();
+			// $collection = keys(collect($newCountries));
 
-				$collection = keys(collect($newCountries));
+            $country = strtoupper(trim(" ukraine "));
 
-				$laravelResult = collect($newCountries)->pluck('rate')->map(fn($r) => $r * 100)->all();
+            $laravelResult = collect($newCountries)->pluck('rate')->map(fn($r) => $r * 100)->all();
+
+
+            $step1 = collect($newCountries);
+
+            $step_filter = $step1 -> filter(fn($item) => $item['rate']);
+
+            $step2 = $step_filter->keys();
+
+            $step3 = $step2->all();
+            dump($step3);
 
 				// $result = collect($newCountries)
 				//         ->filter(fn($item) => isset($item['rate']))
@@ -220,12 +232,12 @@
 
 			<ul>
 				<span>Таблица инфляций: </span>
-						  <span>{{$collection}}</span>
-					{{-- <ul>
-						@foreach ($collection as $item)
+						  <span></span>
+					<ul>
+						@foreach ($step3 as $item)
 							<li>{{ $item }}</li>
 						@endforeach
-					</ul> --}}
+					</ul>
 
 			</ul>
 
