@@ -149,6 +149,19 @@
 		<div class="content">
 
 			@php
+// Инструмент,          Что на входе (аргументы),           Что внутри функции (callback),					Что возвращает (выход)
+// collect($arr),       Обычный массив,                     —,												Объект-коллекция
+// pluck('key'),        Имя ключа (строка),                 —,												Коллекция только из значений этого ключа
+// filter(fn),          Анонимная функция,					Элемент массива. Должен вернуть true/false,		"Коллекция только с теми данными, где было true"
+// map(fn),             Анонимная функция,					Элемент массива. Должен вернуть новое значение,	Коллекция с измененными значениями
+// keys(),              Нет,								—,												"Коллекция, состоящая только из ключей"
+// all(),               Нет,								—,												Обычный массив (вынимает данные из коробки)
+
+
+
+
+
+
 				define("BASE_CURRENCY", "USD");
 				// BASE_CURRENCY = "USD";
 				// $inflationRate = 5.5;
@@ -184,9 +197,39 @@
 				];
 
 
-                $collection = collect($newCountries);
+				$collection = keys(collect($newCountries));
 
-				// function checkStatus(?float $value): string {
+				$laravelResult = collect($newCountries)->pluck('rate')->map(fn($r) => $r * 100)->all();
+
+				// $result = collect($newCountries)
+				//         ->filter(fn($item) => isset($item['rate']))
+				//         ->keys() // Тут мы получили массив названий стран ["Ukraine", "USA"...]
+				//         ->map(fn($name) => strtoupper($name)); // Тут превращаем названия в капс
+
+
+
+				// $result = collect($newCountries)->filter(fn($item) => $item['rate'] > 1) -> keys();
+
+				// $result = collect($newCountries)
+				//         ->filter(fn($item) => ($item['rate'] ?? 0) > 1)
+				//         ->map(fn($item) => $item['rate'] * 100)
+				//         ->keys()
+				//         ->all();
+
+			@endphp
+
+			<ul>
+				<span>Таблица инфляций: </span>
+						  <span>{{$collection}}</span>
+					{{-- <ul>
+						@foreach ($collection as $item)
+							<li>{{ $item }}</li>
+						@endforeach
+					</ul> --}}
+
+			</ul>
+
+							{{-- // function checkStatus(?float $value): string {
 				// 	if($value != null){
 				// 	if ($value > 2.0) {
 				// 		return "🔥 Высокая";
@@ -205,30 +248,16 @@
 				// 	return "СТРАНА: " . strtoupper($name);
 				// 	}, $arrKeys);
 
-                // $onlyRates = array_column($newCountries, 'rate');
+				// $onlyRates = array_column($newCountries, 'rate');
 
-                // $doubleShort = array_map(fn($n) => $n * 100, $onlyRates);
+				// $doubleShort = array_map(fn($n) => $n * 100, $onlyRates);
 
 				// $double = array_map(function($n) {
 				// 	return $n * 2;
 				// }, $numbers);
 
 				// // Короткая стрелочная функция (доступна с PHP 7.4+)
-				 //$doubleShort = array_map(fn($n) => $n * 2, $numbers);
-
-
-			@endphp
-
-			<ul>
-				<span>Таблица инфляций: </span>
-
-                    <ul>
-                        @foreach ($doubleShort as $item)
-                            <li>{{ $item }}%</li>
-                        @endforeach
-                    </ul>
-
-			</ul>
+				 //$doubleShort = array_map(fn($n) => $n * 2, $numbers); --}}
 
 							{{-- @foreach ($newCountries as $country => $sbj)
 					<li>
