@@ -9,33 +9,17 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
-        });
-    }
+public function up(): void
+{
+    Schema::create('users', function (Blueprint $table) {
+        $table->id(); // Это твой INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+        $table->string('username', 50)->nullable()->unique();
+        $table->string('email', 100)->unique();
+        $table->string('password'); // Laravel сам назовет поле для хэша пароля
+        $table->enum('role', ['admin', 'manager', 'user'])->default('user');
+        $table->timestamps(); // Это создаст created_at и updated_at автоматически
+    });
+}
 
     /**
      * Reverse the migrations.
