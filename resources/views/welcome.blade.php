@@ -149,92 +149,23 @@
 		<div class="content">
 
 
-{{-- // Инструмент,          Что на входе (аргументы),           Что внутри функции (callback),					Что возвращает (выход)
-// collect($arr),       Обычный массив,                     —,												Объект-коллекция
-// pluck('key'),        Имя ключа (строка),                 —,												Коллекция только из значений этого ключа
-// filter(fn),          Анонимная функция,					Элемент массива. Должен вернуть true/false,		"Коллекция только с теми данными, где было true"
-// map(fn),             Анонимная функция,					Элемент массива. Должен вернуть новое значение,	Коллекция с измененными значениями
-// keys(),              Нет,								—,												"Коллекция, состоящая только из ключей"
-// all(),               Нет,								—,												Обычный массив (вынимает данные из коробки) --}}
 
 
 
 
-@php
-
-				define("BASE_CURRENCY", "php artisan serve");
-				// BASE_CURRENCY = "USD";
-				// $inflationRate = 5.5;
-				// $indexName = "CPI";
-				// $countryName = "Canada"; // Используем camelCase: countryName вместо country
-				// $currentRate = 1.2;
-
-				// $countries = ["Ukraine", "USA", "Canada"];
-
-				// $newCountries = ["Ukraine"=>1.2, "USA"=>2.2, "Canada"=>2, "Germany"=>0.5];
-
-				$newCountries = [
-					"Ukraine" => [
-						"rate" => 1.2,
-						"currency" => "UAH",
-						"year" => 1995
-					],
-					"USA" => [
-						"rate" => 2.2,
-						"currency" => "USD",
-						"year" => 2000
-					],
-					"Canada" => [
-						"rate" => 2,
-						"currency" => "USD",
-						"year" => 2010
-					],
-					"Germany" => [
-						"rate" => 0.5,
-						"currency" => "Euro",
-						"year" => 2020
-					]
-				];
-
-            $collection = collect($newCountries)->keys();
-			// $collection = keys(collect($newCountries));
-
-            $country = strtoupper(trim(" ukraine "));
-
-            $laravelResult = collect($newCountries)->pluck('rate')->map(fn($r) => $r * 100)->all();
-
-
-            $step1 = collect($newCountries);
-
-            $step_filter = $step1 -> filter(fn($item) => $item['rate']);
-
-            $step2 = $step_filter->keys();
-
-            $step3 = $step2->all();
-            dump($step3);
-
-				// $result = collect($newCountries)
-				//         ->filter(fn($item) => isset($item['rate']))
-				//         ->keys() // Тут мы получили массив названий стран ["Ukraine", "USA"...]
-				//         ->map(fn($name) => strtoupper($name)); // Тут превращаем названия в капс
+{{-- @php
 
 
 
-				// $result = collect($newCountries)->filter(fn($item) => $item['rate'] > 1) -> keys();
-
-				// $result = collect($newCountries)
-				//         ->filter(fn($item) => ($item['rate'] ?? 0) > 1)
-				//         ->map(fn($item) => $item['rate'] * 100)
-				//         ->keys()
-				//         ->all();
-
-			@endphp
+			@endphp --}}
 
 			<ul>
 				<span>Таблица инфляций: </span>
 						  <span></span>
 					<ul>
-						@foreach ($step3 as $item)
+
+                        {{-- <li>{{$result}}</li> --}}
+						@foreach ($result as $item)
 							<li>{{ $item }}</li>
 						@endforeach
 					</ul>
