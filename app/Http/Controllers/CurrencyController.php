@@ -91,6 +91,10 @@ class CurrencyController extends Controller
         // Теперь $name равно тому, что юзер ввел в URL (например, "usa")
         return "Вы ищете данные по стране: " . $name;
     }
+
+    public function debug ($slug){
+            return "Параметр из URL: " . $slug;
+    }
 }
 // $country = strtoupper(trim(" ukraine "));
 

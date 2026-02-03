@@ -11,4 +11,4 @@ Route::get('/', [CurrencyController::class, 'index']);
 
 Route::get('/country/{name}', [CurrencyController::class, 'showCountry']);
 
-
+Route::get('/test/{slug}', [CurrencyController::class, 'debug']);

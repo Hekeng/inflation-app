@@ -148,16 +148,9 @@
 
 		<div class="content">
 
-
-
-
-
-
 {{-- @php
 
-
-
-			@endphp --}}
+@endphp --}}
 
 			<ul>
 				<span>Таблица инфляций: </span>
