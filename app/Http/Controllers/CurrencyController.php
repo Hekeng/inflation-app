@@ -7,6 +7,13 @@
 // keys(),              Нет,								—,												"Коллекция, состоящая только из ключей"
 // all(),               Нет,								—,												Обычный массив (вынимает данные из коробки)
 
+// Хелпер	              Что принимает	                    Что отдает	            Зачем нужен
+// view('имя', [данные])  Строку (путь к файлу) и массив.	Объект страницы.	    Склеивает PHP и HTML.
+// dd($var)	              Любую переменную.	                Ничего (убивает скрипт) Dump and Die. Показывает содержимое переменной и останавливает сайт. Самый важный инструмент отладки.
+// collect($array)	      Обычный массив.	                Объект «Коллекция».	    Дает доступ к методам map, filter и т.д.
+// str($string)	          Обычную строку.	                Объект строки.	        Позволяет делать ->upper(), ->limit() и т.д.
+
+
 // В JS строка — это почти объект, у неё есть методы типа .length или .toUpperCase(). В PHP строка — это примитив. Ты не можешь написать $str->length().
 
 // Как работать со строками в Laravel: Laravel дает крутой помощник Str. Это объектный способ работы со строками.
@@ -47,6 +54,8 @@ class CurrencyController extends Controller
     public function index()
     {
         define("BASE_CURRENCY", "php artisan serve");
+
+
         $newCountries = [
             "Ukraine" => [
                 "rate" => 1.2,
@@ -82,18 +91,19 @@ class CurrencyController extends Controller
             };
         }
 
-        dump($color);
-            return view('welcome', ['result' => $color, 'countries' => $newCountries]);
+        //dump($color);
+            return view('welcome', ['result' => $color, 'countries' => $newCountries, 'name' => null]);
     }
 
-    public function showCountry($name)
-    {
-        // Теперь $name равно тому, что юзер ввел в URL (например, "usa")
-        return "Вы ищете данные по стране: " . $name;
-    }
+    // public function showCountry($name)
+    // {
+    //     // Теперь $name равно тому, что юзер ввел в URL (например, "usa")
+    //     return "Вы ищете данные по стране: " . $name;
+    // }
 
     public function debug ($slug){
-            return "Параметр из URL: " . $slug;
+        return view('welcome', ['name' => $slug]);
+            // return "Параметр из URL: " . $slug;
     }
 }
 // $country = strtoupper(trim(" ukraine "));
